@@ -1,3 +1,4 @@
+from django.conf import settings
 
 # Default sorl-thumbnail backend is overridden. We need to tell which backend to use.
 THUMBNAIL_BACKEND = 'sorl-thumbnail-async.thumbnail.backend.AsyncThumbnailBackend'

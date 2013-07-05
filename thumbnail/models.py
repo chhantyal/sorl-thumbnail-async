@@ -1,8 +1,8 @@
 from copy import copy
-from django.conf import settings
 from django.db.models import signals
 from django.dispatch import receiver
 
+from .thumbnail import settings
 from .tasks import create_thumbnail
 
 class AsyncThumbnailMixin(object):

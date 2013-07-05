@@ -1,12 +1,12 @@
 import re
 
 from django import template
-from django.conf import settings
 from django.utils.encoding import smart_str
 from sorl.thumbnail import default
 from django.template import TemplateSyntaxError
 
 from sorl.thumbnail.templatetags.thumbnail import ThumbnailNode
+from .thumbnail import settings
 
 register = template.Library()
 kw_pat = re.compile(r'^(?P<key>[\w]+)=(?P<value>.+)$')
