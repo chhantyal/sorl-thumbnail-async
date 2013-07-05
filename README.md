@@ -12,6 +12,8 @@ Install
 
 `pip install sorl-thumbnail-async`
 
+Add 'thumbnail' in INSTALLED_APPS.
+
 Dependencies
 ------------
 `pip install django`   
@@ -19,5 +21,16 @@ Dependencies
 `pip install PIL`   
 `pip install sorl-thumbnail`
 
+Usage
+-----
+
+In models, use `AsyncThumbnailMixin` inherit from. 
+This will call celery task on save(), and create thumbnail from specified image field. 
+
+In templates,  
+`{% load thumbnail %}`   
+`{% thumbnail item.picture small as im %}`  
+`...<img src"im.url">`  
+`{% endthumbnail %}`
 
 [sorl-thumbnail]: https://github.com/sorl/sorl-thumbnail
