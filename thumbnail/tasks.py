@@ -1,0 +1,20 @@
+import celery
+
+from sorl.thumbnail import default
+from sorl.thumbnail.images import ImageFile
+
+@celery.task
+def create_thumbnail(image_file, geometry_string, **options):
+    source = ImageFile(image_file)
+    for key, value in default.backend.default_options.iteritems():
+            options.setdefault(key, value)
+    name = default.backend._get_thumbnail_filename(source, geometry_string, options)
+    thumbnail = ImageFile(name, default.storage)
+    source_image = default.engine.get_image(source)
+    default.backend._create_thumbnail(source_image, geometry_string, options, thumbnail)
+
+    size = default.engine.get_image_size(source_image)
+    source.set_size(size)
+
+    default.kvstore.get_or_set(source)
+    default.kvstore.set(thumbnail, source)
