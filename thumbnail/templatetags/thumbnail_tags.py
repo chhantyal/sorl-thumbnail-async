@@ -1,0 +1,40 @@
+import re
+
+from django import template
+from django.conf import settings
+from django.utils.encoding import smart_str
+from sorl.thumbnail import default
+from django.template import TemplateSyntaxError
+
+from sorl.thumbnail.templatetags.thumbnail import ThumbnailNode
+
+register = template.Library()
+kw_pat = re.compile(r'^(?P<key>[\w]+)=(?P<value>.+)$')
+
+class CustomThumbnailNode(ThumbnailNode):
+    """ Extends ThumbnailNode to use thumbnail sizes from settings"""
+    error_message = ('Please enter sizes defined in settings')
+    def __init__(self, parser, token):
+        ThumbnailNode.__init__(self, parser, token)
+        bits = token.split_contents()
+        if len(bits) < 5 or bits[-2] != 'as':
+            raise TemplateSyntaxError(self.error_msg)
+        try:
+            thumbnail_options = settings.THUMBNAIL_OPTIONS[bits[2]]
+            thumbnail_options = thumbnail_options.split()
+        except KeyError:
+            raise TemplateSyntaxError(self.error_message)
+        self.geometry = parser.compile_filter("'%s'" % thumbnail_options[0])
+        self.options = []
+        try:
+            m = kw_pat.match(thumbnail_options[1])
+            key = smart_str(m.group('key'))
+            expr = parser.compile_filter('"%s"' % m.group('value'))
+            self.options.append((key, expr))
+        except IndexError:
+            pass
+        self.as_var = bits[-1]
+
+@register.tag
+def thumbnail(parser, token):
+    return CustomThumbnailNode(parser, token)
