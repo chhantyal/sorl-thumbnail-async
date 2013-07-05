@@ -1,7 +1,7 @@
 sorl-thumbnail-async
 ====================
 
-Asynchronous thumbnailing app in django with remote storages like S3. This is override of some parts of [sorl-thumbnail], which is a bit slow when used with remote storages. 
+Asynchronous thumbnailing app in django with remote storages like S3. This is modifications of some parts of [sorl-thumbnail], which is a bit slow when used with remote storages. 
 
 - Celery is used to create thumbnail asynchronously.
 - Thumbnails are pregenerated and cached.
