@@ -13,7 +13,6 @@ setup(
     name='sorl-thumbnail-async',
     version=0.1,
     description='Asynchronous thumbnailing app in django with remote storages like S3',
-    long_description=open('README.md').read(),
     author='Nar Kumar Chhantyal',
     author_email='neokya@gmail.com',
     license='BSD',
@@ -22,7 +21,7 @@ setup(
     platforms='any',
     zip_safe=False,
     classifiers=[
-        'Development Status :: 01 - Beta',
+        'Development Status :: 5 - Production/Stable',
         'Environment :: Web Environment',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: BSD License',
@@ -34,4 +33,3 @@ setup(
     ],
     cmdclass={"test": TestCommand},
 )
-
