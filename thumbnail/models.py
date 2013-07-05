@@ -6,6 +6,9 @@ from django.dispatch import receiver
 from .tasks import create_thumbnail
 
 class AsyncThumbnailMixin(object):
+    """
+    All model which have ImageField to be thumbnailed inheret from this class. 
+    """
     image_field_name = 'picture'
 
     def call_upload_task(self):
