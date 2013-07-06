@@ -31,6 +31,17 @@ In templates,
 `{% load thumbnail %}`   
 `{% thumbnail item.picture small as im %}`  
 `...<img src"im.url">`  
-`{% endthumbnail %}`
+`{% endthumbnail %}`  
 
+Settings
+--------
+You can add as many sizes and option as needed. It is python dictionary. 
+
+```THUMBNAIL_OPTIONS_DICT = {
+        'small': {
+                'geometry': '140x140',
+                'crop': 'center'
+        }
+    }
+```
 [sorl-thumbnail]: https://github.com/sorl/sorl-thumbnail
