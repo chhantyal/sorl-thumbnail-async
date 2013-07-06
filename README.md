@@ -37,11 +37,11 @@ Settings
 --------
 You can add as many sizes and option as needed. It is python dictionary. 
 
-```THUMBNAIL_OPTIONS_DICT = {
+`THUMBNAIL_OPTIONS_DICT = {
         'small': {
                 'geometry': '140x140',
                 'crop': 'center'
         }
     }
-```
+`
 [sorl-thumbnail]: https://github.com/sorl/sorl-thumbnail
