@@ -28,7 +28,7 @@ In models, use `AsyncThumbnailMixin` inherit from.
 This will call celery task on save(), and create thumbnail from specified image field. 
 
 In templates,  
-`{% load thumbnail %}`   
+`{% load thumbnail_tags %}`   
 `{% thumbnail item.picture small as im %}`  
 `...<img src"im.url">`  
 `{% endthumbnail %}`  
