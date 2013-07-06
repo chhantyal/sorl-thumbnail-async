@@ -7,6 +7,7 @@ from django.template import TemplateSyntaxError
 
 from sorl.thumbnail.templatetags.thumbnail import ThumbnailNode
 from .thumbnail import settings
+from .utils import get_thumbnail_options_from_dict
 
 register = template.Library()
 kw_pat = re.compile(r'^(?P<key>[\w]+)=(?P<value>.+)$')
@@ -20,6 +21,7 @@ class CustomThumbnailNode(ThumbnailNode):
         if len(bits) < 5 or bits[-2] != 'as':
             raise TemplateSyntaxError(self.error_msg)
         try:
+            THUMBNAIL_OPTIONS = get_thumbnail_options_from_dict(settings.THUMBNAIL_OPTIONS_DICT)
             thumbnail_options = settings.THUMBNAIL_OPTIONS[bits[2]]
             thumbnail_options = thumbnail_options.split()
         except KeyError:
