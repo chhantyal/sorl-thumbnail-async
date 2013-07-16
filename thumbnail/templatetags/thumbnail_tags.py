@@ -6,7 +6,7 @@ from sorl.thumbnail import default
 from django.template import TemplateSyntaxError
 
 from sorl.thumbnail.templatetags.thumbnail import ThumbnailNode
-from .thumbnail import settings
+from .conf import settings
 from .utils import get_thumbnail_options_from_dict
 
 register = template.Library()

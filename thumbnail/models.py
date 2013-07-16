@@ -2,7 +2,7 @@ from copy import copy
 from django.db.models import signals
 from django.dispatch import receiver
 
-from sorl-thumbnail-async.thumbnail import settings
+from .conf import settings
 from .tasks import create_thumbnail
 
 class AsyncThumbnailMixin(object):
