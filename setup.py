@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-version = '0.4.9'
+version = '0.4.10'
 
 setup(
     name='sorl-thumbnail-async',
