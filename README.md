@@ -40,21 +40,31 @@ contains the image. Defaults to `picture`.
 
 Example:
 
+	from django.db import models
+	
 	from sorl import thumbnail
 	from thumbnail.models import AsyncThumbnailMixin
 	
 	
-	class MyModel(AsyncThumbnailMixin, models.Model):
-	    image_field_name = 'image'
+	class Book(AsyncThumbnailMixin, models.Model):
+	    image_field_name = 'cover_image'
 	
-	    image = thumbnail.ImageField(upload_to='my_model/')
+		title = models.CharField(blank=False, max_length=255, db_index=True)
+	    cover_image = thumbnail.ImageField(upload_to='my_model/')
 
 In templates:
 
 	{% load thumbnail_tags %}
-	{% thumbnail item.picture small as im %}
+	{% thumbnail book.cover_image small as im %}
 	<img src"{{ im.url }}">
 	{% endthumbnail %}
+
+In python code:
+
+	from thumbnail import get_thumbnail
+	
+	book = Book.objects.get(title='Life of Pi')
+	thumbnail_url = get_thumbnail(book.cover_image, 'small').url
 
 Settings
 --------
