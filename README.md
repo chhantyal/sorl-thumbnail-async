@@ -31,16 +31,15 @@ contains the image. Defaults to `picture`.
 
 Example:
 
-`
-from sorl import thumbnail
-from thumbnail.models import AsyncThumbnailMixin
-
-
-class MyModel(AsyncThumbnailMixin, models.Model):
-    image_field_name = 'image'
+	from sorl import thumbnail
+	from thumbnail.models import AsyncThumbnailMixin
 	
-    image = thumbnail.ImageField(upload_to='my_model/')
-`
+	
+	class MyModel(AsyncThumbnailMixin, models.Model):
+	    image_field_name = 'image'
+	
+	    image = thumbnail.ImageField(upload_to='my_model/')
+
 
 
 In templates,  
@@ -53,11 +52,11 @@ Settings
 --------
 You can add as many sizes and option as needed. It is a python dictionary. 
 
-`THUMBNAIL_OPTIONS_DICT = {
-        'small': {
-                'geometry': '140x140',
-                'crop': 'center'
-        }
-    }
-`
+	THUMBNAIL_OPTIONS_DICT = {
+	        'small': {
+	                'geometry': '140x140',
+	                'crop': 'center'
+	        }
+	    }
+
 [sorl-thumbnail]: https://github.com/sorl/sorl-thumbnail
