@@ -24,7 +24,16 @@ Dependencies
 Usage
 -----
 
-In models, use `thumbnail.models.AsyncThumbnailMixin` to inherit from. Make sure that your model inherits
+In your `settings.py` add an option called `THUMBNAIL_OPTIONS_DICT`, defining all your thumbnail sizes:
+
+	THUMBNAIL_OPTIONS_DICT = {
+	        'small': {
+	                'geometry': '140x140',
+	                'crop': 'center'
+	        }
+	    }
+
+In your models, use `thumbnail.models.AsyncThumbnailMixin` as a baseclass. Make sure that your model inherits
 from AsyncThumbnailMixin first. This will call celery task on save(), and create one or more thumbnails
 from the specified image field. Use class variable `image_field_name` to configure the field that
 contains the image. Defaults to `picture`.
@@ -40,13 +49,12 @@ Example:
 	
 	    image = thumbnail.ImageField(upload_to='my_model/')
 
+In templates:
 
-
-In templates,  
-`{% load thumbnail_tags %}`   
-`{% thumbnail item.picture small as im %}`  
-`...<img src"im.url">`  
-`{% endthumbnail %}`  
+	{% load thumbnail_tags %}
+	{% thumbnail item.picture small as im %}
+	<img src"{{ im.url }}">
+	{% endthumbnail %}
 
 Settings
 --------
