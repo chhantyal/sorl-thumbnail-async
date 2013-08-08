@@ -1,3 +1,5 @@
+from copy import copy
+
 # Template tag doesn't work with options dictionary. We need to change it.
 # Pass dictionary from setting file.
 
