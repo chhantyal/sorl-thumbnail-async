@@ -67,4 +67,9 @@ You can add as many sizes and option as needed. It is a python dictionary.
 	        }
 	    }
 
+**NOTE**: sorl-thumbnail-async registers its own `THUMBNAIL_BACKEND`:
+
+	THUMBNAIL_BACKEND = 'sorl-thumbnail-async.thumbnail.backend.AsyncThumbnailBackend'
+
+
 [sorl-thumbnail]: https://github.com/sorl/sorl-thumbnail
