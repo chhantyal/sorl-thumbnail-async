@@ -50,7 +50,7 @@ Example:
 	    image_field_name = 'cover_image'
 	
 		title = models.CharField(blank=False, max_length=255, db_index=True)
-	    cover_image = thumbnail.ImageField(upload_to='my_model/')
+	    cover_image = thumbnail.ImageField(upload_to='books/')
 
 In templates:
 
