@@ -5,14 +5,14 @@ Asynchronous thumbnailing app in django with remote storages like S3. This is mo
 
 - Celery is used to create thumbnail asynchronously.
 - Thumbnails are pregenerated and cached.
-- Thumbnail options are specified in setting file.
+- Thumbnail sizes and options are specified in one place (your settings file).
 
 Install
 -------
 
 `pip install sorl-thumbnail-async`
 
-Add 'thumbnail' in INSTALLED_APPS.
+Add 'thumbnail' to your INSTALLED_APPS.
 
 Dependencies
 ------------
@@ -24,8 +24,24 @@ Dependencies
 Usage
 -----
 
-In models, use `AsyncThumbnailMixin` inherit from. 
-This will call celery task on save(), and create thumbnail from specified image field. 
+In models, use `thumbnail.models.AsyncThumbnailMixin` to inherit from. Make sure that your model inherits
+from AsyncThumbnailMixin first. This will call celery task on save(), and create one or more thumbnails
+from the specified image field. Use class variable `image_field_name` to configure the field that
+contains the image. Defaults to `picture`.
+
+Example:
+
+`
+from sorl import thumbnail
+from thumbnail.models import AsyncThumbnailMixin
+
+
+class MyModel(AsyncThumbnailMixin, models.Model):
+    image_field_name = 'image'
+	
+    image = thumbnail.ImageField(upload_to='my_model/')
+`
+
 
 In templates,  
 `{% load thumbnail_tags %}`   
@@ -35,7 +51,7 @@ In templates,
 
 Settings
 --------
-You can add as many sizes and option as needed. It is python dictionary. 
+You can add as many sizes and option as needed. It is a python dictionary. 
 
 `THUMBNAIL_OPTIONS_DICT = {
         'small': {
