@@ -5,14 +5,14 @@ Asynchronous thumbnailing app in django with remote storages like S3. This is mo
 
 - Celery is used to create thumbnail asynchronously.
 - Thumbnails are pregenerated and cached.
-- Thumbnail options are specified in setting file.
+- Thumbnail sizes and options are specified in one place (your settings file).
 
 Install
 -------
 
 `pip install sorl-thumbnail-async`
 
-Add 'thumbnail' in INSTALLED_APPS.
+Add 'thumbnail' to your INSTALLED_APPS.
 
 Dependencies
 ------------
@@ -24,24 +24,62 @@ Dependencies
 Usage
 -----
 
-In models, use `AsyncThumbnailMixin` inherit from. 
-This will call celery task on save(), and create thumbnail from specified image field. 
+In your `settings.py` add an option called `THUMBNAIL_OPTIONS_DICT`, defining all your thumbnail sizes:
 
-In templates,  
-`{% load thumbnail_tags %}`   
-`{% thumbnail item.picture small as im %}`  
-`...<img src"im.url">`  
-`{% endthumbnail %}`  
+	THUMBNAIL_OPTIONS_DICT = {
+	        'small': {
+	                'geometry': '140x140',
+	                'crop': 'center'
+	        }
+	    }
+
+In your models, use `thumbnail.models.AsyncThumbnailMixin` as a baseclass. Make sure that your model inherits
+from AsyncThumbnailMixin first. This will call celery task on save(), and create one or more thumbnails
+from the specified image field. Use class variable `image_field_name` to configure the field that
+contains the image. Defaults to `picture`.
+
+Example:
+
+	from django.db import models
+	
+	from sorl import thumbnail
+	from thumbnail.models import AsyncThumbnailMixin
+	
+	
+	class Book(AsyncThumbnailMixin, models.Model):
+	    image_field_name = 'cover_image'
+	
+		title = models.CharField(blank=False, max_length=255, db_index=True)
+	    cover_image = thumbnail.ImageField(upload_to='books/')
+
+In templates:
+
+	{% load thumbnail_tags %}
+	{% thumbnail book.cover_image small as im %}
+	<img src"{{ im.url }}">
+	{% endthumbnail %}
+
+In python code:
+
+	from thumbnail import get_thumbnail
+	
+	book = Book.objects.get(title='Life of Pi')
+	thumbnail_url = get_thumbnail(book.cover_image, 'small').url
 
 Settings
 --------
-You can add as many sizes and option as needed. It is python dictionary. 
+You can add as many sizes and option as needed. It is a python dictionary. 
 
-`THUMBNAIL_OPTIONS_DICT = {
-        'small': {
-                'geometry': '140x140',
-                'crop': 'center'
-        }
-    }
-`
+	THUMBNAIL_OPTIONS_DICT = {
+	        'small': {
+	                'geometry': '140x140',
+	                'crop': 'center'
+	        }
+	    }
+
+**NOTE**: sorl-thumbnail-async registers its own `THUMBNAIL_BACKEND`:
+
+	THUMBNAIL_BACKEND = 'sorl-thumbnail-async.thumbnail.backend.AsyncThumbnailBackend'
+
+
 [sorl-thumbnail]: https://github.com/sorl/sorl-thumbnail

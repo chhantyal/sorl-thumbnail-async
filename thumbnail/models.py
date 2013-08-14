@@ -12,7 +12,7 @@ class AsyncThumbnailMixin(object):
     image_field_name = 'picture'
 
     def call_upload_task(self):
-        for name, options in settings.THUMBNAIL_OPTIONS_DICT.iteritems():
+        for name, options in settings.OPTIONS_DICT.iteritems():
             opt = copy(options)
             geometry = opt.pop('geometry')
             create_thumbnail.delay(getattr(self, self.image_field_name), geometry, **opt)
