@@ -82,4 +82,4 @@ You can add as many sizes and option as needed. It is a python dictionary.
 	THUMBNAIL_BACKEND = 'sorl-thumbnail-async.thumbnail.backend.AsyncThumbnailBackend'
 
 
-[sorl-thumbnail]: https://github.com/sorl/sorl-thumbnail
+[sorl-thumbnail]: https://github.com/mariocesar/sorl-thumbnail
