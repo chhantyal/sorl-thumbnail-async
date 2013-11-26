@@ -83,3 +83,7 @@ You can add as many sizes and option as needed. It is a python dictionary.
 
 
 [sorl-thumbnail]: https://github.com/mariocesar/sorl-thumbnail
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/chhantyal/sorl-thumbnail-async/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
