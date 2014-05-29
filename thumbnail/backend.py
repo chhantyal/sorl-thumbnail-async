@@ -5,7 +5,7 @@ from sorl.thumbnail.images import ImageFile, DummyImageFile
 class AsyncThumbnailBackend(ThumbnailBackend):
     def get_thumbnail(self, file_, geometry_string, **options):
         source = ImageFile(file_)
-        for key, value in self.default_options.iteritems():
+        for key, value in self.default_options.items():
             options.setdefault(key, value)
         name = self._get_thumbnail_filename(source, geometry_string, options)
         thumbnail = ImageFile(name, default.storage)
