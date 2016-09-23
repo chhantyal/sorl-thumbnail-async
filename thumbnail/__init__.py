@@ -4,6 +4,7 @@ from sorl.thumbnail import get_thumbnail as original_get_thumbnail
 
 from .conf import settings
 
+default_app_config = 'thumbnail.apps.ThumbnailConfig'
 
 def get_thumbnail(file_, name):
     """
